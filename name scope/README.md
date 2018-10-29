@@ -1,1 +1,9 @@
+1. 总结name_scope与variable_scope的作用以及异同点。
+2. 构建逻辑回归模型（只有模型部分，不包括训练部分），使用get_variable与variable_scope将变量的创建与使用分开。提示：使用tf.nn.sigmoid实现logistic函数。
 
+name_scope可以为其作用域中的节点的name添加一个或多个前缀，并使用这些前缀作为划分内部与外部op范围的标记。同时在TensorBoard可视化时可以作为一个整体出现（也可以展开）。并且name_scope可以嵌套使用，代表不同层级的功能区域的划分。
+name_scope使用tf.name_scope()创建，返回一个上下文管理器。name_scope的参数name可以是字母、数字、下划线，不能以下划线开头。类似于Op的name的命名方式。
+从外部传入的Tensor，并不会在name_scope中加上前缀。name_scope的default_name参数可以在函数中使用。
+
+variable_scope主要用于管理变量作用域以及与变量相关的操作，同时variable_scope也可以像name_scope一样用来给不同操作区域划分范围（添加name前缀）。variable_scope功能也要更丰富，最重要的是可以与tf.get_variable()等配合使用完成对变量的重复使用。
+在变量作用域中，如其属性reuse=None时，tf.get_variable不能获得变量；在变量作用域中，如其属性reuse=True时，tf.get_variable不能创建变量；
